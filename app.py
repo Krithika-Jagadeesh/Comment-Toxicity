@@ -7,7 +7,7 @@ import pandas as pd
 import re
 
 # Load artifacts
-model = tf.keras.models.load_model("toxicity_model/lstm_model.h5")
+model = tf.keras.models.load_model("toxicity_model/lstm_model.keras")
 tokenizer = pickle.load(open("toxicity_model/tokenizer.pkl", "rb"))
 thresholds = np.load("toxicity_model/best_thresholds.npy")
 
@@ -57,4 +57,5 @@ if uploaded_file:
             df[label] = preds[:, i]
             df[f"{label}_score"] = probs[:, i]
         st.dataframe(df.head())
+
         st.download_button("Download Results", df.to_csv(index=False), "toxicity_predictions.csv")
